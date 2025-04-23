@@ -7,21 +7,23 @@ import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
 
 function App() {
   const [answer, setAnswer] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(false);
+  const [analyzeLoading, setAnalyzeLoading] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white p-4">
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">🎥 YouTube Video Analyzer</h1>
+          <h1 className="text-2xl font-bold">YouTube Video Analyzer</h1>
           <ThemeToggle />
         </div>
-        <YoutubeInput setLoading={setLoading} loading={loading} />
-        <QuestionForm setAnswer={setAnswer} setLoading={setLoading} loading={loading} />
-        <ResultBox answer={answer} loading={loading} />
+        <YoutubeInput setLoading={setVideoLoading} loading={videoLoading} />
+        <QuestionForm setAnswer={setAnswer} setLoading={setAnalyzeLoading} loading={analyzeLoading} />
+        <ResultBox answer={answer} loading={analyzeLoading} />
         <Toast />
       </div>
     </div>
   );
 }
+
 export default App;

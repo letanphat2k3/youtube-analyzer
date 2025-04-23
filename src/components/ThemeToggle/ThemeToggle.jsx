@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 
 function ThemeToggle() {
   const [darkMode, setDarkMode] = useState(
@@ -18,9 +19,17 @@ function ThemeToggle() {
   return (
     <button
       onClick={() => setDarkMode(!darkMode)}
-      className="text-sm bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded"
+      className="text-sm bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded flex items-center gap-1"
     >
-      {darkMode ? "☀️ Light" : "🌙 Dark"}
+      {darkMode ? (
+        <>
+          <SunIcon className="h-4 w-4" /> Light
+        </>
+      ) : (
+        <>
+          <MoonIcon className="h-4 w-4" /> Dark
+        </>
+      )}
     </button>
   );
 }
