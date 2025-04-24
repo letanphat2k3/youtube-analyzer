@@ -5,15 +5,19 @@ function ResultBox({ answer, loading }) {
   const [displayText, setDisplayText] = useState("");
 
   useEffect(() => {
-    if (!loading && answer) {
-      setDisplayText("");
-      let i = 0;
-      const interval = setInterval(() => {
-        setDisplayText((prev) => prev + answer[i]);
-        i++;
-        if (i >= answer.length) clearInterval(interval);
-      }, 30);
-      return () => clearInterval(interval);
+    if (!loading) {
+      if (answer) {
+        setDisplayText("");
+        let i = 0;
+        const interval = setInterval(() => {
+          setDisplayText((prev) => prev + answer[i]);
+          i++;
+          if (i >= answer.length) clearInterval(interval);
+        }, 30);
+        return () => clearInterval(interval);
+      } else {
+        setDisplayText("");
+      }
     }
   }, [answer, loading]);
 
