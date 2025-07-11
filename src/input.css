@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .input-style {
+    @apply w-full px-4 py-2 pl-10 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800
+           text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none
+           transition-all duration-200;
+  }
+
+  .label-style {
+    @apply text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1 block;
+  }
+
+  .icon-style {
+    @apply absolute left-3 text-gray-400 h-5 w-5 text-base;
+    top: calc(50% - 2px);
+    transform: translateY(-50%);
+  }
+
+  .register-form {
+    @apply w-full space-y-4 px-2;
+  }
+
+  .form-grid {
+    @apply grid grid-cols-2 gap-4;
+  }
+
+  .input-icon-wrapper {
+    @apply relative;
+  }
+
+  .submit-button {
+    @apply w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 
+    text-white font-bold shadow-md hover:scale-105 hover:shadow-lg 
+    transition-all duration-200;
+  }
+
+  .tab-button {
+    @apply px-4 py-2 rounded-full font-bold transition duration-300 ease-in-out transform 
+           bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white 
+           hover:bg-gradient-to-r hover:from-blue-400 hover:to-indigo-500 hover:text-white 
+           hover:shadow-xl hover:scale-105;
+  }
+
+  .tab-button-active {
+    @apply bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md scale-105;
+  }
+
+  .google-login-button {
+    @apply w-full flex items-center justify-center gap-3 py-3 px-6 rounded-xl 
+           bg-gradient-to-r from-red-500 to-orange-400 text-white font-bold 
+           shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 
+           focus:outline-none focus:ring-4 focus:ring-red-300;
+  }
+
+  .google-icon {
+    @apply h-5 w-5;
+  }
+}

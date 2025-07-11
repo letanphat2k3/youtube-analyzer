@@ -15,6 +15,7 @@ function Dashboard({ user, setUser }) {
   const [videoLoading, setVideoLoading] = useState(false);
   const [analyzeLoading, setAnalyzeLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [authTab, setAuthTab] = useState("login");
 
   return (
     <>
@@ -25,8 +26,14 @@ function Dashboard({ user, setUser }) {
           setUser(null);
           showToast("Đã đăng xuất", "success");
         }}
-        onLoginClick={() => setShowModal(true)}
-        onRegisterClick={() => setShowModal(true)}
+        onLoginClick={() => {
+          setAuthTab("login");
+          setShowModal(true);
+        }}
+        onRegisterClick={() => {
+          setAuthTab("register");
+          setShowModal(true);
+        }}
       />
       <div className="max-w-3xl mx-auto p-4">
         {!user ? (
@@ -43,6 +50,7 @@ function Dashboard({ user, setUser }) {
       </div>
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         <AuthTabs
+          initialTab={authTab}
           onLoginSuccess={(userData) => {
             setUser(userData);
             setShowModal(false);
@@ -56,11 +64,13 @@ function Dashboard({ user, setUser }) {
 function HomeWrapper({ user, setUser }) {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [authTab, setAuthTab] = useState("login");
 
   const handleStart = () => {
     if (user) {
       navigate("/dashboard");
     } else {
+      setAuthTab("login");
       setShowModal(true);
     }
   };
@@ -74,12 +84,19 @@ function HomeWrapper({ user, setUser }) {
           setUser(null);
           showToast("Đã đăng xuất", "success");
         }}
-        onLoginClick={() => setShowModal(true)}
-        onRegisterClick={() => setShowModal(true)}
+        onLoginClick={() => {
+          setAuthTab("login");
+          setShowModal(true);
+        }}
+        onRegisterClick={() => {
+          setAuthTab("register");
+          setShowModal(true);
+        }}
       />
       <Home onStart={handleStart} />
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         <AuthTabs
+          initialTab={authTab}
           onLoginSuccess={(userData) => {
             setUser(userData);
             setShowModal(false);

@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./input.css";
 
 .input-style {
   @apply w-full p-2 border border-gray-300 dark:border-gray-600 rounded mb-2 bg-white text-gray-900 font-medium shadow-sm transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500;
@@ -24,4 +25,27 @@
 }
 .animate-pulse-slow {
   animation: pulse-slow 6s ease-in-out infinite;
+}
+
+.input-style {
+  @apply w-full rounded-xl px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600
+         focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-600 text-gray-800 dark:text-white;
+}
+
+@layer components {
+  .form-section {
+    @apply w-full space-y-4 px-2;
+  }
+
+  .form-grid {
+    @apply grid grid-cols-2 gap-4;
+  }
+
+  .input-group {
+    @apply relative;
+  }
+
+  .submit-button {
+    @apply w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold shadow-md hover:scale-105 hover:shadow-lg transition-all duration-200;
+  }
 }
