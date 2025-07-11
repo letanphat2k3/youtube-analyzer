@@ -30,7 +30,7 @@ function App() {
       
 
       {/* Nội dung chính */}
-      <div className="flex-1 ml-60 p-4 max-w-4xl mx-auto">
+      <div className="flex-1 p-4 max-w-4xl mx-auto">
         {process.env.NODE_ENV === "development" && <StagewiseToolbar />}
 
         {/* Tiêu đề và chuyển theme */}
