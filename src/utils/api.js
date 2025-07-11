@@ -1,5 +1,5 @@
 import axios from "axios";
-const NODE_API = process.env.REACT_APP_NODE_API || "http://localhost:8001";
+const NODE_API = process.env.REACT_APP_NODE_API || "http://localhost:8000";
 const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
 // Đăng ký người dùng
