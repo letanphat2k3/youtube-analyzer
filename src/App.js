@@ -1,77 +1,119 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import Home from "./components/Home/Home";
 import YoutubeInput from "./components/YoutubeInput/YoutubeInput";
 import QuestionForm from "./components/QuestionForm/QuestionForm";
 import ResultBox from "./components/ResultBox/ResultBox";
 import Toast, { showToast } from "./components/Toast/Toast";
-import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
-import GoogleLoginButton from "./components/Login/GoogleLoginButton";
+import AuthTabs from "./components/Authentication/AuthTabs";
+import Header from "./components/Header/Header";
+import Modal from "./components/Authentication/Modal";
 
-import { StagewiseToolbar } from "@stagewise/toolbar-react";
-
-function App() {
-  const [user, setUser] = useState(null);
+function Dashboard({ user, setUser }) {
   const [answer, setAnswer] = useState("");
   const [videoLoading, setVideoLoading] = useState(false);
   const [analyzeLoading, setAnalyzeLoading] = useState(false);
-
-  // Lấy user từ localStorage khi load trang
-  useEffect(() => {
-    const saved = localStorage.getItem("user");
-    if (saved) setUser(JSON.parse(saved));
-  }, []);
-
-  // Lưu user vào localStorage khi đăng nhập thành công
-  useEffect(() => {
-    if (user) localStorage.setItem("user", JSON.stringify(user));
-  }, [user]);
+  const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="flex min-h-screen w-full bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-      
-
-      {/* Nội dung chính */}
-      <div className="flex-1 p-4 max-w-4xl mx-auto">
-        {process.env.NODE_ENV === "development" && <StagewiseToolbar />}
-
-        {/* Tiêu đề và chuyển theme */}
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">YouTube Video Analyzer</h1>
-          <ThemeToggle />
-        </div>
-
-        {/* Giao diện khi chưa đăng nhập */}
+    <>
+      <Header
+        user={user}
+        onLogout={() => {
+          localStorage.removeItem("user");
+          setUser(null);
+          showToast("Đã đăng xuất", "success");
+        }}
+        onLoginClick={() => setShowModal(true)}
+        onRegisterClick={() => setShowModal(true)}
+      />
+      <div className="max-w-3xl mx-auto p-4">
         {!user ? (
-          <GoogleLoginButton onLoginSuccess={setUser} />
+          <p className="text-center text-gray-600 dark:text-gray-400 font-semibold">
+            Vui lòng đăng nhập để sử dụng công cụ phân tích video.
+          </p>
         ) : (
           <>
-            {/* Thông tin người dùng + nút đăng xuất */}
-            <div className="flex justify-between items-center text-sm mb-4 text-gray-500">
-              <span>
-                Đăng nhập: <span className="font-semibold">{user.name}</span>
-              </span>
-              <button
-                onClick={() => {
-                  localStorage.removeItem("user");
-                  setUser(null);
-                  showToast("Đã đăng xuất", "success");
-                }}
-                className="ml-4 text-red-500 underline hover:text-red-700 transition"
-              >
-                Đăng xuất
-              </button>
-            </div>
-
-            {/* Các chức năng chính */}
             <YoutubeInput setLoading={setVideoLoading} loading={videoLoading} />
             <QuestionForm setAnswer={setAnswer} setLoading={setAnalyzeLoading} loading={analyzeLoading} />
             <ResultBox answer={answer} loading={analyzeLoading} />
           </>
         )}
+      </div>
+      <Modal open={showModal} onClose={() => setShowModal(false)}>
+        <AuthTabs
+          onLoginSuccess={(userData) => {
+            setUser(userData);
+            setShowModal(false);
+          }}
+        />
+      </Modal>
+    </>
+  );
+}
 
-        {/* Toast thông báo */}
+function HomeWrapper({ user, setUser }) {
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleStart = () => {
+    if (user) {
+      navigate("/dashboard");
+    } else {
+      setShowModal(true);
+    }
+  };
+
+  return (
+    <>
+      <Header
+        user={user}
+        onLogout={() => {
+          localStorage.removeItem("user");
+          setUser(null);
+          showToast("Đã đăng xuất", "success");
+        }}
+        onLoginClick={() => setShowModal(true)}
+        onRegisterClick={() => setShowModal(true)}
+      />
+      <Home onStart={handleStart} />
+      <Modal open={showModal} onClose={() => setShowModal(false)}>
+        <AuthTabs
+          onLoginSuccess={(userData) => {
+            setUser(userData);
+            setShowModal(false);
+          }}
+        />
+      </Modal>
+    </>
+  );
+}
+
+function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("user");
+    if (saved) setUser(JSON.parse(saved));
+  }, []);
+
+  useEffect(() => {
+    if (user) localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+
+  return (
+    <Router>
+      <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white p-0 m-0">
+        <AnimatePresence mode="wait">
+          <Routes>
+            <Route path="/" element={<HomeWrapper user={user} setUser={setUser} />} />
+            <Route path="/dashboard" element={<Dashboard user={user} setUser={setUser} />} />
+          </Routes>
+        </AnimatePresence>
         <Toast />
       </div>
-    </div>
+    </Router>
   );
 }
 

@@ -6,3 +6,5 @@ export const downloadVideo = (url) => axios.post(`${API_BASE}/download_video`, {
 export const analyzeVideo = (question, mode = "chi_tiet") =>
   axios.post(`${API_BASE}/analyze_video`, { question, mode });
 export const getResult = () => axios.get(`${API_BASE}/result`);
+
+export const registerUser = (data) => axios.post(`${API_BASE}/register`, data); 
