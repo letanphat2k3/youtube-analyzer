@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { showToast } from "../Toast/Toast";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { motion } from "framer-motion";
-import axios from "axios";
+import { loginUser } from "../../utils/api";
 import "./RegisterFormStyle";
 
 export default function LoginForm({ onSuccess }) {
@@ -18,7 +18,7 @@ export default function LoginForm({ onSuccess }) {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/login`, form);
+      const res = await loginUser(form);
 
       if (res.data.success) {
         showToast("Đăng nhập thành công", "success");
