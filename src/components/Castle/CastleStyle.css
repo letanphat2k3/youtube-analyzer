@@ -378,3 +378,7 @@ body.dark .control-toggle {
   background: rgba(255, 255, 255, 0.05);
   color: #ccc;
 }
+
+.control-toggle {
+  display: none !important;
+}
