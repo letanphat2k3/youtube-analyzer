@@ -5,6 +5,10 @@ body {
   background: #2294b3;
   overflow: hidden;
   transition: background 0.4s ease;
+  height: 100%;
+  margin: 0;
+  background: #2294b3;
+  overflow: auto;
 }
 
 body.dark {

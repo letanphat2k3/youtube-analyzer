@@ -35,19 +35,20 @@ function Dashboard({ user, setUser }) {
           setShowModal(true);
         }}
       />
-      <div className="max-w-3xl mx-auto p-4">
+      <div className="flex flex-col items-center w-full px-4 py-8">
         {!user ? (
           <p className="text-center text-gray-600 dark:text-gray-400 font-semibold">
             Vui lòng đăng nhập để sử dụng công cụ phân tích video.
           </p>
         ) : (
-          <>
+          <div className="w-full max-w-3xl flex flex-col gap-6">
             <YoutubeInput setLoading={setVideoLoading} loading={videoLoading} />
             <QuestionForm setAnswer={setAnswer} setLoading={setAnalyzeLoading} loading={analyzeLoading} />
             <ResultBox answer={answer} loading={analyzeLoading} />
-          </>
+          </div>
         )}
       </div>
+
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         <AuthTabs
           initialTab={authTab}
@@ -121,7 +122,7 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen w-full bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white p-0 m-0">
+      <div className="min-h-screen w-full overflow-hidden bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<HomeWrapper user={user} setUser={setUser} />} />

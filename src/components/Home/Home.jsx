@@ -9,13 +9,14 @@ function Home({ onStart }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
-      className="min-h-screen w-full flex flex-col items-center justify-center text-center px-6 relative overflow-hidden
-                 bg-gradient-to-br from-white via-blue-50 to-purple-100 dark:from-gray-900 dark:via-gray-800 dark:to-black"
+      className="min-h-screen w-full flex flex-col items-center justify-center text-center px-6 relative
+            bg-gradient-to-br from-white via-blue-50 to-purple-100 dark:from-gray-900 dark:via-gray-800 dark:to-black"
     >
       {/* Castle Animation Layer */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none h-full w-full">
+      <div className="absolute inset-0 z-0 overflow-visible pointer-events-none h-full w-full">
         <Castle />
       </div>
+      
 
       {/* Nội dung chính */}
       <motion.div
